@@ -1,6 +1,6 @@
 from collections import Counter
 import numpy as np
-from decisiontree import DecisionTree
+from .decisiontree import DecisionTree
 
 
 def get_sample(X: np.ndarray, y: np.ndarray) -> tuple:
