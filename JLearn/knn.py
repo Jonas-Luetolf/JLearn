@@ -6,14 +6,14 @@ from ._distances import euclidean_distance
 
 
 class KNNClassifier(BaseClassifier):
-    def __init__(self, n_neighbors) -> None:
+    def __init__(self, n_neighbors: int) -> None:
         """
         :param n_neighbors: number of neighbors for prediction
         """
 
         self.n_neighbors = n_neighbors
 
-    def fit(self, X_train, y_train) -> None:
+    def fit(self, X_train: np.ndarray, y_train: np.ndarray) -> None:
         """
         stores the training data
 
@@ -24,7 +24,7 @@ class KNNClassifier(BaseClassifier):
         self.X_train = X_train
         self.y_train = y_train
 
-    def _predict(self, x) -> np.ndarray:
+    def _predict(self, x: np.ndarray) -> np.ndarray:
         """
         prediction for one point
 

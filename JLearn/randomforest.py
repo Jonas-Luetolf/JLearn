@@ -1,6 +1,7 @@
 from collections import Counter
 import numpy as np
 from .decisiontree import DecisionTree
+from ._base import BaseClassifier
 
 
 def get_sample(X: np.ndarray, y: np.ndarray) -> tuple:
@@ -14,7 +15,7 @@ def most_common(preds: np.ndarray) -> np.ndarray:
     return c.most_common(1)[0][0]
 
 
-class RandomForest:
+class RandomForest(BaseClassifier):
     def __init__(
         self, n_trees: int, min_samples: int = 2, max_depth: int = 100
     ) -> None:
@@ -28,13 +29,12 @@ class RandomForest:
         for _ in range(self.n_trees):
             tree = DecisionTree(max_depth=self.max_depth, min_samples=self.min_samples)
 
+            # train the tree
             X_samples, y_samples = get_sample(X, y)
             tree.fit(X_samples, y_samples)
 
             self.trees.append(tree)
 
-    def predict(self, X: np.ndarray) -> np.ndarray:
-        predictions = np.array([tree.predict(X) for tree in self.trees])
-        predictions = np.swapaxes(predictions, 0, 1)
-
-        return np.array([most_common(prediction) for prediction in predictions])
+    def _predict(self, x: np.ndarray) -> np.ndarray:
+        predictions = np.array([tree._predict(x) for tree in self.trees])
+        return np.array(most_common(predictions))
