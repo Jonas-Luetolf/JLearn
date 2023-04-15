@@ -5,10 +5,10 @@ class BaseClassifier:
     def __init__(self) -> None:
         raise NotImplementedError
 
-    def fit(self, X_train, y_train) -> None:
+    def fit(self, X_train: np.ndarray, y_train: np.ndarray) -> None:
         raise NotImplementedError
 
-    def predict(self, X) -> np.ndarray:
+    def predict(self, X: np.ndarray) -> np.ndarray:
         """
         predicts the class of the given points
 
@@ -18,7 +18,7 @@ class BaseClassifier:
 
         return np.array([self._predict(x) for x in X])
 
-    def _predict(self, x) -> np.ndarray:
+    def _predict(self, x: np.ndarray) -> np.ndarray:
         """
         classification of one point
 
@@ -29,7 +29,7 @@ class BaseClassifier:
 
 
 class BaseRegression:
-    def __init__(self, lr=0.001, n_iters=1000) -> None:
+    def __init__(self, lr: float = 0.001, n_iters: int = 1000) -> None:
         """
         :param lr: the learning rate for gradient descent
         :param n_iters: number of gradient descent steps
@@ -62,7 +62,7 @@ class BaseRegression:
             self.weights -= self.lr * dw
             self.bias -= self.lr * db
 
-    def _calculate(self, X) -> np.ndarray:
+    def _calculate(self, X: np.ndarray) -> np.ndarray:
         """
         calculates the prediction for a dataset
         :param X: the dataset to predict
@@ -70,7 +70,7 @@ class BaseRegression:
         """
         raise NotImplementedError
 
-    def predict(self, X) -> np.ndarray:
+    def predict(self, X: np.ndarray) -> np.ndarray:
         """
         returns the predicted values or class
         :param X: dataset to predict
